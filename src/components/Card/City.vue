@@ -1,22 +1,23 @@
 <template>
-  <div
-      class="p-3 rounded-3xl cursor-pointer bg-gray-100 hover:bg-gray-200 transition-300"
+  <router-link
+      :to="`/city/${city?.id}`"
+      class="p-3 rounded-3xl cursor-pointer bg-blue-100 hover:bg-blue-200 transition-300"
       @click="$emit('click')"
   >
     <div class="flex items-center justify-between">
       <div >
         <div class="flex items-center gap-1">
           <LocationIcon class="w-4 h-4"/>
-          <p class="text-lg">{{ city }}</p>
+          <p class="text-lg">{{ city?.name }}</p>
         </div>
         <span class="block text-sm">
-          Узбекистан
+          {{city?.sys?.country}}
         </span>
       </div>
       <div class="flex items-end">
-        <MoonCloud class="w-10 h-10 text-gray-600"/>
+        <img class="w-10 h-10" :src="`https://openweathermap.org/img/wn/${city?.weather[0]?.icon}@2x.png`" alt="">
         <span class="text-xl  text-center">
-          26°
+          {{city?.main?.temp.toFixed()}}°
         </span>
       </div>
     </div>
@@ -28,21 +29,19 @@
       </div>
       <div>
         <span class="text-sm">
-          34° / 21°
+          {{city?.main?.temp_max.toFixed()}}° / {{city?.main?.temp_min.toFixed()}}°
         </span>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
 import LocationIcon from "@/components/Icons/Location.vue";
-import MoonCloud from "@/components/Icons/MoonCloud.vue";
+import type {City} from "@/types";
 
 defineProps({
-  city: {
-    type: String,
-    required: true,
+  city: Object as () => City
   }
-})
+)
 </script>
