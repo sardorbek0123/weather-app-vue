@@ -1,14 +1,16 @@
 <template>
-  <div class="container py-10 grid gap-4 grid-cols-2">
-    <CityShimmer v-if="loading" v-for="i in 10"/>
-    <CityCard v-else v-for="city in weatherStore.cities" :city="city" :key="city.id" />
-  </div>
+  <main class="bg-gradient-to-b from-[#3E2D8F] to-[#9D52AC]">
+    <div class="container py-10 grid gap-4 grid-cols-2 min-h-screen">
+      <CityShimmer v-if="loading" v-for="i in 10"/>
+      <CityCard v-else v-for="city in weatherStore.cities" :city="city" :key="city.id" />
+    </div>
+  </main>
 </template>
 
 <script setup lang="ts">
 import CityCard from "@/components/Card/City.vue";
 import {useWeatherStore} from "@/store/weather";
-import {onMounted, computed, ref} from "vue";
+import {onMounted, ref} from "vue";
 import CityShimmer from "@/components/Card/CityShimmer.vue";
 
 const weatherStore = useWeatherStore();

@@ -1,12 +1,14 @@
 import {defineStore} from "pinia";
 import axios from "axios";
 import {reactive, ref} from "vue";
+import type { City } from '@/types'
 
 export const useWeatherStore = defineStore('weather', () => {
     const key = import.meta.env.VITE_WEATHER_API_KEY as string;
     const baseUrl = import.meta.env.VITE_WEATHER_URL as string;
 
-    const cities = reactive([])
+
+    const cities = reactive<City[]>([])
     const forecast = reactive([])
 
     async function getWeather(city: string) {
